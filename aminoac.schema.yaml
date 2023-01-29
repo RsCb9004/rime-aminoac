@@ -1,0 +1,50 @@
+# Aminoac Schema by RsCb
+# Encoding: utf-8
+
+schema:
+  schema_id: aminoac
+  name: 古神语拼音
+  version: "0.1"
+  author:
+    - RsCb
+  description: |
+    古神语输入方案。
+
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: ["oàC", "Eng"]
+
+engine:
+  processors:
+    - ascii_composer
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - abc_segmentor
+    - punct_segmentor
+  translators:
+    - table_translator
+    - punct_translator
+  filters:
+    - single_char_filter
+
+speller:
+  alphabet: qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM
+
+punctuator:
+  half_shape: &symtable
+    "`" : ·
+    "\"": [”, “]
+    "'" : [’, ‘]
+  full_shape: *symtable
+
+translator:
+  dictionary: aminoac
+  enable_user_dict: false
+  enable_encoder: false
+  encode_commit_history: false
+  enable_sentence: false
